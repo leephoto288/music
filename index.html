@@ -6,18 +6,35 @@
   <title>Background Music</title>
 </head>
 <body>
-  <audio id="bgm" loop>
+  <audio id="bgm" loop preload="auto">
     <source src="https://files.catbox.moe/6vhdyl.mp3" type="audio/mpeg">
   </audio>
 
+  <div id="playNotice" style="position:fixed;bottom:20px;right:20px;background:rgba(0,0,0,0.6);color:white;padding:10px 14px;border-radius:10px;font-size:14px;cursor:pointer;z-index:9999;">
+    🔊 Chạm hoặc cuộn để bật nhạc
+  </div>
+
   <script>
-    document.addEventListener("scroll", function playMusic() {
-      const m = document.getElementById("bgm");
+    const m = document.getElementSoById("bgm");
+    const notice = document.getElementById("playNotice");
+
+    function playMusic() {
       if (m && m.paused) {
-        m.play().catch(err => console.log("Autoplay bị chặn:", err));
+        m.play()
+          .then(() => {
+            notice.style.display = "none";
+            console.log("Đã phát nhạc!");
+          })
+          .catch(err => {
+            console.log("Trình duyệt chặn autoplay:", err);
+          });
       }
-      document.removeEventListener("scroll", playMusic);
-    });
+    }
+
+    // Khi người dùng tương tác thật (click / chạm / cuộn)
+    document.addEventListener("click", playMusic);
+    document.addEventListener("touchstart", playMusic);
+    document.addEventListener("scroll", playMusic);
   </script>
 </body>
 </html>
