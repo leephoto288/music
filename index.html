@@ -13,14 +13,14 @@
   <script>
     const bgm = document.getElementById("bgm");
 
-    // Nếu người dùng tương tác (cuộn, chạm, click)
+    // Nếu có tương tác trực tiếp
     ["scroll", "click", "touchstart"].forEach(evt => {
       document.addEventListener(evt, () => {
         bgm.play().catch(()=>{});
       }, { once: true });
     });
 
-    // Nếu được nhúng trong Google Sites, nhận tín hiệu từ trang cha
+    // Nếu nhận tín hiệu từ Google Sites
     window.addEventListener("message", (e) => {
       if (e.data === "playBgm") {
         bgm.play().catch(()=>{});
