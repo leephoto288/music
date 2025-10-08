@@ -1,11 +1,61 @@
-<button id="btn">▶️ Bật nhạc</button>
-<audio id="bgm" loop>
-  <source src="https://leephoto288.github.io/music/music.mp3" type="audio/mpeg">
-</audio>
-<script>
-   const btn = document.getElementById("btn");
-   const m = document.getElementById("bgm");
-   btn.addEventListener("click", () => {
-      m.play().then(...)
-   });
-</script>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhạc nền</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #fffaf0;
+      font-family: sans-serif;
+    }
+    #btnPlay {
+      background: #ff9f43;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      transition: 0.2s;
+    }
+    #btnPlay:hover {
+      background: #ff7f00;
+    }
+  </style>
+</head>
+<body>
+  <button id="btnPlay">▶️ Bật nhạc</button>
+
+  <audio id="bgm" loop preload="auto">
+    <source src="https://files.catbox.moe/6vhdyl.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const btn = document.getElementById("btnPlay");
+    const music = document.getElementById("bgm");
+
+    btn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play().then(() => {
+          btn.textContent = "🎵 Đang phát nhạc...";
+          btn.style.background = "#43aa8b";
+        }).catch(err => {
+          console.error("Lỗi khi phát nhạc:", err);
+          alert("Trình duyệt đang chặn phát tự động. Hãy thử lại!");
+        });
+      } else {
+        music.pause();
+        btn.textContent = "▶️ Bật nhạc";
+        btn.style.background = "#ff9f43";
+      }
+    });
+  </script>
+</body>
+</html>
