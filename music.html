@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Background Music</title>
 </head>
 <body>
-  <audio autoplay loop>
-    <source src="https://files.catbox.moe/6vhdyl.mp3" type="audio/mpeg">
+  <audio id="bgm" loop>
+    <source src="https://files.catbox.moe/6vhdyl.mp3" type="audio/mpeg" />
   </audio>
+
+  <script>
+    document.addEventListener("scroll", function playMusic() {
+      const m = document.getElementById("bgm");
+      if (m && m.paused) {
+        m.play().catch(err => console.log("Autoplay bị chặn:", err));
+      }
+      document.removeEventListener("scroll", playMusic);
+    });
+  </script>
 </body>
 </html>
