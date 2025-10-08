@@ -1,31 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto Music</title>
-</head>
-<body>
-  <audio id="bgm" loop preload="auto">
-    <source src="https://leephoto288.github.io/music/music.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    const bgm = document.getElementById("bgm");
-
-    // Nếu có tương tác trực tiếp
-    ["scroll", "click", "touchstart"].forEach(evt => {
-      document.addEventListener(evt, () => {
-        bgm.play().catch(()=>{});
-      }, { once: true });
-    });
-
-    // Nếu nhận tín hiệu từ Google Sites
-    window.addEventListener("message", (e) => {
-      if (e.data === "playBgm") {
-        bgm.play().catch(()=>{});
-      }
-    });
-  </script>
-</body>
+<html>
+  <body style="margin:0">
+    <audio id="bgm" loop preload="auto">
+      <source src="https://leephoto288.github.io/music/music.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+      // Lắng nghe sự kiện từ Google Sites
+      window.addEventListener("message", (event) => {
+        if (event.data === "play-music") {
+          const m = document.getElementById("bgm");
+          m.play().catch(err => console.log("Autoplay bị chặn:", err));
+        }
+      });
+    </script>
+  </body>
 </html>
