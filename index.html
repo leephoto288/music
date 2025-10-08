@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto Play Music</title>
+  <title>Auto Music</title>
 </head>
 <body>
   <audio id="bgm" loop preload="auto">
@@ -11,26 +11,21 @@
   </audio>
 
   <script>
-    const music = document.getElementById("bgm");
+    const bgm = document.getElementById("bgm");
 
-    // Khi người dùng cuộn hoặc chạm vào bất cứ đâu (Google Sites iframe sẽ gửi sự kiện này)
-    function tryPlay() {
-      if (music.paused) {
-        music.play()
-          .then(() => console.log("Đã phát nhạc!"))
-          .catch(err => console.log("Trình duyệt chặn autoplay:", err));
-      }
-    }
-
-    // Sự kiện trong iframe (Google Sites)
-    window.addEventListener("message", (e) => {
-      if (e.data === "user-interact") tryPlay();
+    // Nếu người dùng tương tác (cuộn, chạm, click)
+    ["scroll", "click", "touchstart"].forEach(evt => {
+      document.addEventListener(evt, () => {
+        bgm.play().catch(()=>{});
+      }, { once: true });
     });
 
-    // Nếu mở trực tiếp GitHub Page, vẫn phát khi chạm hoặc cuộn
-    document.addEventListener("scroll", tryPlay, { once: true });
-    document.addEventListener("click", tryPlay, { once: true });
-    document.addEventListener("touchstart", tryPlay, { once: true });
+    // Nếu được nhúng trong Google Sites, nhận tín hiệu từ trang cha
+    window.addEventListener("message", (e) => {
+      if (e.data === "playBgm") {
+        bgm.play().catch(()=>{});
+      }
+    });
   </script>
 </body>
 </html>
