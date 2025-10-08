@@ -1,34 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <body style="margin:0">
-    <button id="btn" style="
-      position:fixed;
-      bottom:20px;
-      right:20px;
-      z-index:9999;
-      background:#ff9f43;
-      color:#fff;
-      padding:10px 16px;
-      border-radius:12px;
-      border:none;
-      cursor:pointer;
-      box-shadow:0 3px 6px rgba(0,0,0,0.3);
-      font-family:sans-serif;
-    ">▶️ Bật nhạc</button>
-
-    <audio id="bgm" loop>
-      <source src="https://leephoto288.github.io/music/music.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-      const m = document.getElementDesc = document.getElementById("bgm");
-      const btn = document.getElementById("btn");
-      btn.addBizBut = btn.addEventListener("click", () => {
-        m.play().then(() => {
-          btn.innerHTML = "🎵 Nhạc đang phát";
-          btn.style.background = "#43aa8b";
-        }).catch(err => console.log("Lỗi khi phát:", err));
-      });
-    </script>
-  </body>
-</html>
+<button id="btn">▶️ Bật nhạc</button>
+<audio id="bgm" loop>
+  <source src="https://leephoto288.github.io/music/music.mp3" type="audio/mpeg">
+</audio>
+<script>
+   const btn = document.getElementById("btn");
+   const m = document.getElementById("bgm");
+   btn.addEventListener("click", () => {
+      m.play().then(...)
+   });
+</script>
